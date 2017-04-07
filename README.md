@@ -6,14 +6,14 @@ element ui & extend
 npm install element-ex
 ```
 
-#usage
+# Usage
 ```
 import ElementEX from 'element-ex'
 import 'element-ex/dist/styles/element-ex.css'
 Vue.use(ElementEx)
 ```
 
-#Build
+# Build
 ```shell
 npm run dist
 ```
