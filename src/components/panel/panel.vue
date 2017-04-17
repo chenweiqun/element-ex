@@ -1,6 +1,6 @@
 <template lang="pug">
   .el-panel(v-show="value")
-    .el-panel-modal(ref="modal",@click.self="close")
+    .el-panel-modal(ref="modal",@click.self="closeModal")
       .el-panel-modal-wrapper(:style="{'width':px(width)}")
         .el-panel-modal-header
           .el-panel-modal-title {{title}}
@@ -48,6 +48,10 @@ export default {
     value: {
       type: Boolean,
       default: false
+    },
+    closeOnClickModal: {
+      type: Boolean,
+      default: true
     }
   },
   computed: {
@@ -55,6 +59,11 @@ export default {
   methods: {
     px (val) {
       return parseInt(val) + 'px'
+    },
+    closeModal () {
+      if (this.closeOnClickModal) {
+        this.close()
+      }
     },
     close () {
       this.$emit('close')

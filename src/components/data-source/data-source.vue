@@ -23,7 +23,7 @@ export default {
     url: {
       type: String
     },
-    query: {
+    queryParams: {
       type: Object,
       default () {
         return {}
@@ -87,14 +87,13 @@ export default {
   watch: {
     url (val) {
       if (val) {
-        this.reload()
+        this.load()
       }
     }
   },
   mounted () {
     this.page = this.currentPage
     this.rows = this.pageSize
-    _.merge(this.queryParams, this.query)
     if (this.autoLoad) {
       this.load()
     }
@@ -114,10 +113,6 @@ export default {
     },
     reset () {
       this.page = 1
-    },
-    reload () {
-      this.reset()
-      this.load()
     },
     handleCurrentChange (currentPage) {
       this.page = currentPage
@@ -150,14 +145,19 @@ export default {
         this.loading = false
       }
     },
-    load (query, method = this.method) {
+    reload (query = this.queryParams, method = this.method) {
       let params = {}
       if (this.pagination) {
         params[this.limitKey] = this.rows
         params[this.pageKey] = this.page
       }
-      _.merge(this.queryParams, query, params)
-      this.request(this.queryParams)
+      this.queryParams = query
+      _.assign(params, query)
+      this.request(params)
+    },
+    load (query = this.queryParams, method = this.method) {
+      this.reset()
+      this.reload(query, method)
     }
   }
 }
