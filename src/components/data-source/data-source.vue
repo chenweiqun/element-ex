@@ -91,6 +91,7 @@ export default {
     }
   },
   mounted () {
+    this.query = this.queryParams
     this.page = this.currentPage
     this.rows = this.pageSize
     if (this.autoLoad) {
@@ -142,17 +143,17 @@ export default {
         this.loading = false
       }
     },
-    reload (query = this.queryParams, method = this.method) {
+    reload (query = this.query, method = this.method) {
       let params = {}
       if (this.pagination) {
         params[this.limitKey] = this.rows
         params[this.pageKey] = this.page
       }
-      this.queryParams = query
+      this.query = query
       _.assign(params, query)
       this.request(params)
     },
-    load (query = this.queryParams, method = this.method) {
+    load (query = this.query, method = this.method) {
       this.reset()
       this.reload(query, method)
     }
