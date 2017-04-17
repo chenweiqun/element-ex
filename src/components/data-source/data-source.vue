@@ -80,8 +80,7 @@ export default {
       total: 0,
       page: 1,
       rows: 0,
-      loading: false,
-      queryParams: {}
+      loading: false
     }
   },
   watch: {
