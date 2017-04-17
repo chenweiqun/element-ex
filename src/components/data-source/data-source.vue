@@ -102,12 +102,10 @@ export default {
   },
   methods: {
     sort (sortInfo) {
-      this.reset()
       this.load({sort: sortInfo.sort, order: sortInfo.order})
     },
     handleSizeChange (size) {
       this.rows = size
-      this.reset()
       this.load()
     },
     reset () {
@@ -115,7 +113,7 @@ export default {
     },
     handleCurrentChange (currentPage) {
       this.page = currentPage
-      this.load()
+      this.reload()
     },
     async request (params) {
       if (!this.url) {
