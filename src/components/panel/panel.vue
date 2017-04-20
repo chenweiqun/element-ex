@@ -23,7 +23,7 @@ export default {
     },
     top: {
       type: String,
-      default: '10%'
+      default: '15%'
     },
 
     showClose: {
@@ -61,7 +61,7 @@ export default {
   },
   methods: {
     getWrapperStyle () {
-      return {'width': this.px(this.width), 'margin-top': this.top}
+      return {'width': this.px(this.width)}
     },
     px (val) {
       return parseInt(val) + 'px'
