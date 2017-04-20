@@ -1,14 +1,15 @@
 <template lang="pug">
-  .el-panel(v-show="value")
-    .el-panel-modal(ref="modal",@click.self="closeModal")
-      .el-panel-modal-wrapper(:style="{'width':px(width)}")
-        .el-panel-modal-header
-          .el-panel-modal-title {{title}}
-          i.el-panel-modal-close-btn.el-icon-close(@click.self="close")
-        .el-panel-modal-cotent
-          slot(name="default")
-        .el-panel-modal-footer
-          slot(name="footer")
+    .el-panel(v-show="value")
+      .el-panel-modal(ref="modal",@click.self="closeModal")
+        transition(name="el-panel-fade")
+          .el-panel-modal-wrapper(:style="getWrapperStyle()",v-show="value")
+            .el-panel-modal-header
+              .el-panel-modal-title {{title}}
+              i.el-panel-modal-close-btn.el-icon-close(@click.self="close",v-if="showClose")
+            .el-panel-modal-cotent(v-if="isInit || value")
+              slot(name="default")
+            .el-panel-modal-footer
+              slot(name="footer")
 </template>
 
 <script>
@@ -16,23 +17,13 @@
 // import _ from 'lodash'
 export default {
   props: {
-    size: {
-      type: String,
-      default: 'small'
-    },
-
     width: {
       type: [String, Number],
       default: '800px'
     },
-    customClass: {
-      type: String,
-      default: ''
-    },
-
     top: {
       type: String,
-      default: '15%'
+      default: '10%'
     },
 
     showClose: {
@@ -54,9 +45,24 @@ export default {
       default: true
     }
   },
+  watch: {
+    value (val) {
+      if (val) {
+        this.isInit = true
+      }
+    }
+  },
+  data () {
+    return {
+      isInit: false
+    }
+  },
   computed: {
   },
   methods: {
+    getWrapperStyle () {
+      return {'width': this.px(this.width), 'margin-top': this.top}
+    },
     px (val) {
       return parseInt(val) + 'px'
     },
@@ -71,7 +77,6 @@ export default {
     }
   },
   mounted () {
-
   },
   beforeDestroy () {
   }

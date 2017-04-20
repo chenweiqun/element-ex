@@ -1,9 +1,10 @@
 <template lang="pug">
   .demo-panel
     el-button(@click="showPanel=true") 打开面板
-    el-panel(v-model="showPanel",title="我是一个面板",:close-on-click-modal="false")
+    el-panel(v-model="showPanel",title="我是一个面板",:close-on-click-modal="false",:show-close="true")
       div
-        span hello world
+        el-card
+          div hello world
       div(slot="footer")
         el-button(type="primary") 确定
 </template>
